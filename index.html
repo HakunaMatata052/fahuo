@@ -48,10 +48,9 @@
     cursor: pointer;
 }
     </style>
-    <a href="javascript:void(0)" class="up-file">
+    <a href="javascript:void(0)" class="up-file" id="file">
         <input type="file" onchange="importf(this)" />上传Excel
     </a>
-
     <a href="" download="发货信息.xlsx" id="downloadA"></a>
     <script>
         /**
@@ -88,20 +87,31 @@
                  * wb.Sheets[Sheet名]获取第一个Sheet的数据
                  */
                 var excelJson = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                console.log(excelJson)
                 var fahuoArray = []
                 excelJson.forEach(i => {
                     let json = {}
-                    var num = /[0-9]{17}/.exec(i.id)
-                    json.ID = num || i.id
-                    json.NAME = i.name.replace('www.', '')
+                    var num = /[0-9]{17}/.exec(i['订单名称'])
+                    json['订单名称'] = num || i.id
+                    json['物流公司']= i['物流公司']
+                    json['物流单号'] = i['物流单号'].replace(/'/,'')
                     fahuoArray.push(json)
                 })
                 downloadExl(fahuoArray)
+                // var a = localStorage.getItem('num')
+                // if(a){
+                //     document.write('<img src="https://dobby.me/images/alipay.jpg">')
+                //     document.getElementById('file').style.display = 'none'
+
+                //     localStorage.setItem('num',a++)
+                // }else{
+                //     downloadExl(fahuoArray)
+                // }
             };
             if (rABS) {
-                reader.readAsArrayBuffer(f);
+                reader.readAsText(f,'GB2312');
             } else {
-                reader.readAsBinaryString(f);
+                reader.readAsText(f,'GB2312');
             }
         }
 
