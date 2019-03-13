@@ -92,7 +92,7 @@
                  * wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
                  * wb.Sheets[Sheet名]获取第一个Sheet的数据
                  */
-                var excelJson = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+                var excelJson = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
                 console.log(excelJson)
                 var fahuoArray = []
                 excelJson.forEach(i => {
