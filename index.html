@@ -97,8 +97,10 @@
                 var fahuoArray = []
                 excelJson.forEach(i => {
                     let json = {}
-                    var num = /[0-9]{17}/.exec(i['订单名称'])
-                    json['订单名称'] = num || i.id
+                    var num = /[0-9]{21}/.exec(i['订单名称'])
+                    num =num.toString();
+                    var num2 = num.substring(0,6)+'-'+num.substring(6)
+                    json['订单名称'] = num2 || i.id
                     json['物流公司'] = i['物流公司']
                     json['物流单号'] = i['物流单号'].replace(/'/, '')
                     fahuoArray.push(json)
